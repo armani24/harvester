@@ -1,9 +1,11 @@
 name: CadQuery Render
+
 on: [push]
 
 jobs:
   render:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v4
 
@@ -12,18 +14,17 @@ jobs:
         with:
           python-version: '3.10'
 
-      - name: Install CadQuery
+      - name: Install dependencies
         run: |
-          pip install cadquery-ocp-novtk cadquery
+          pip install --upgrade pip
+          pip install cadquery cadquery-ocp-novtk
 
       - name: Generate STL
         run: |
-          # Runs all scripts in your designs folder
           python designs/shaker_part.py
 
       - name: Upload STL Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: harvester-parts
-          path: ./*.stl
-
+          name: cadquery-output
+          path: designs/**/*.stl
