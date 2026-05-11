@@ -21,7 +21,7 @@ jobs:
 
       - name: Generate STL
         run: |
-          python designs/shaker_part.py
+          python designs/shaker.py
 
       - name: Upload STL Artifact
         uses: actions/upload-artifact@v4
